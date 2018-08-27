@@ -1,0 +1,359 @@
+Hamlib -- History of visible changes.
+
+Copyright (C) 2000-2003  Frank Singleton
+Copyright (C) 2000-2013  Stephane Fillod, and others
+
+Please send Hamlib bug reports to hamlib-developer@lists.sourceforge.net
+
+Version 3.0
+	2013-??-??
+	* Kill RPC backends and rpc.rigd/rpc.rotd
+	* Remove -e|--end-marker option from rigctld and rotctld
+	* Build system updates--remove obsolete macros, autogen.sh now
+		runs autoreconf to invoke Autotools to bootstrap the build
+		system, libltdl is installed into the source tree as a part
+		of the build system bootstrap and is included in the source
+		tarball, ABI version is set to be compatible with the 1.2
+		series, all Autotools installed files are copied rather than
+		symlinked and put in the build-aux directory, building
+		rigmem and rigmatrix are now user selectable at configure
+		run time, building static libraries are disabled by default.
+		Fixed TCL binding installation, fixed Perl binding build so it
+		is not invoked by 'make dist' and clean up build files.  Cleaned
+		up bindings builds to occur in alphabetical order.  Use new
+		ax_pkg_swig macro and update ax_python_devel macro.  Test for
+		presence of pkg-config before testing for pkg-config use.
+	* Implement new RIT/XIT activation/deactivation through rig_get/set_func()
+	* IC-PCR1500/2500 default write_delay to 0, IC-746/756, IC-PCR8500
+		fixes, pcr.c, pcr1500.c: Add DSP support.  TNX Paul, KE7ZZ
+	* WinRadio G313 updates.  TNX Julian Campbel
+	* Readline editing and history support added to rigctl interactive
+		mode.  Implement options for reading and writing history file.
+	* Readline editing and history support added to rotctl interactive
+		mode.  Implement options for reading and writing history file.
+	* A new manual draft written in Texinfo added.  Both GNU Info and single
+		HTML files are built and distributed, requires makeinfo.
+	* Android build system support.  See android/README.android.  Android
+		Makefile fragments are included in source tarballs.
+	* Monolithic library, thanks to Remi Chateauneu for the majority of
+		the work!  This allows enabling of a single static library so
+		static libs are enabled by default.  Removes dependency on libltdl.
+	* Fixes to easycomm, TNX Steve AI4QR.
+	* Fixes to port handling allowing PTT and CAT on the same port.  TNX
+		Bill, G4WJS.
+	* New Peaberry models V1 and V2 added to kit backend.  TNX ON8VQ
+		and R2AEE.
+	* New IC-7100 model.  TNX Martin, CT1IQI.
+	* Use AC_CHECK_LIB macro to search for libusb rather than rely on
+	    pkg-config.  Preserve environment variables LIBUSB_CFLAGS and
+	    LIBUSB_LIBS as user precious variables.  Two features,
+	    --with-xml-support and --enable-usrp still rely on pkg-config so
+	    only invoke pkg-config when either or both of these features are
+	    selected.  Only the Winradio g313 model uses libdl so test for it
+	    only when Winradio backend is enabled.
+
+Version 1.2.15.3
+	2012-11-01
+	* Fix configure.ac so that rigctld/rotcld work on Win32 platform
+	* Add NSIS script to build executable installer on Win32 platform
+	* Remove unsupported commands on IC-756 (non-Pro model) from AK6I
+	* Fix set_split in netrigctl.c to properly accept the split
+		value.  TNX, N2ADR.
+	* IC-R8500: Add RIG_LEVEL_AF to has_set_level.  TNX John, EI7IG
+	* ADAT updates from Frank, DG1SBG, needed for stable operation.
+
+Version 1.2.15.2
+	2012-08-05
+	* Read eeprom value for digital mode from FT-857
+	* Clean up TS-950 series commands and read mode using IF command
+	* Fix GS-232A/B rotor command terminations
+	* Fix warnings and other issues found by mingw-w64
+	* Allow seamless access to ports higher than COM9 on Windows
+	* Fix ineffective packed attribute on WinRadio
+	* Correct low signal strength S-meter error on AR7030+
+	* Updates to HiQSDR by Jim, N2ADR
+
+Version 1.2.15.1
+	2012-03-11
+	* HD-1780 rotor endpoint limit fix
+	* Quell adat compile warnings
+	* Sort rig/rot list output from rig/rotctl (-l) by model #
+	* TenTec Jupiter (TT538) fixes
+	* Include various backend notes files
+	* Document sorted -l output for <rig|rot>ctl[d]
+	* Updates README.betatester and README.developer
+
+Version 1.2.15
+	2012-02-02
+	* New models: TT-599 Eagle, IC-RX7, IC-1275, HiQSDR, ADAT ADT-200A,
+		DttSP UDP, TM-D710
+	* New rotator backends: Celestron (telescope mount)
+	* Fixes and features: K3, various other rigs
+	* Update LGPL/GPL header boilerplate
+	* Quell various compiler errors
+	* Add CM108 PTT capability
+
+Version 1.2.14
+	2011-08-01
+	* New models: SigFox Transfox, TH-D72A, IC-7410, IC-9100, IC-R9500, KX3,
+		V4L2 API support (untested),
+	* New rotator backends: IF-100, TS-7400
+	* Fixes and features: K3/KX3, Build Win32 from script, rigctld/rotctld
+		ported to Mingw32, Win32 build fixes, remove obsolete bundled
+		libtool files, rigctl improvements, FUNcube string test (works
+		with V0.0 and V1.0), Yaesu newcat.c fixed to use
+		rig->state.current_vfo to store vfo value, add a command to
+		halt rigctld, select PTT source in Kenwood backends (TS-590S),
+		make sure scan is stopped at IC-9000 opening, thd72 get channel
+		data (alpha).  See ChangeLog for a link to the online log.
+		Correct typos and SF.net URIs.
+
+Version 1.2.13.1
+	* 2011-05-29
+	* Conversion to Git SCM and updated README documentation for Git SCM
+	* Mingw32 build fixes
+	* FUNcube dongle USB fixes for Win32
+	* Added kit/README.funcubedongle
+	* Bug fix--K3 antenna selection function
+
+Version 1.2.13
+	2011-03-12
+	* New models: VX-1700, FUNcube Dongle, FiFi-SDR, KTH-SDR Si570,
+		FT-DX5000, TS-590S, TH-F6A, PRM8060, SR-2200
+	* Rotor fixes and features: SPID
+	* New Rotor backend: F1TE Tracker
+	* Fixes and features: TS-440S, K2, K3, THF6A, THF7E, NewCAT
+		rigs serial port defaults, TM-D700, FT-950, Si570 AVR-USB
+	* Removed libtool tree from source tree
+	* Removed old DocBook files
+	* Allow USB device's VID/PID/Vendor/Product to be explicitly specified
+	* Doxygen documentation updates and new style sheet
+
+Version 1.2.12
+	2010-09-03
+	* New models: PCR-2500, RX331, TRP 8255 S R
+	* New rotator backends: DF9GR's ERC
+	* Fixes and features: Paragon, TS-690S, FT-920, FT-990, FT-2000,
+        Elektor SDR-USB, IC-7000, IC-7700, AR-8200, AR-8600
+
+Version 1.2.11
+	2010-05-31
+	* New models: RA-3702, IC-738, IC-7600, IC-7700, AR 7030+,
+        FT-980, TT-536 Delta-II, R&S EB200
+	* New rotator backends: GS-232B, GS-232 (not A or B), ARS RCI, M2 RC2800
+	* Fixes and features: TH-F7E, FT-847, FT-736, FT-920, FT767GX, FT-747,
+        FT-950, FT-450, Yaesu NewCAT, PCR*, IC-706MkIIG, IC-7800, R-8A, Paragon
+	* rigctld/rotctld
+	* ltdl security update
+	* IPv6 ready
+	* bindings not built by default
+
+Version 1.2.10
+	2009-11-02
+	* New models: IC-7200, PCR-1500, RX-340, R&S ESMC, BC898T,
+		Si570 AVR-USB, Paragon (skeleton)
+	* New rotator backend: SPID
+	* Fixes and features: TH-F7E, K2, FT-920, Yaesu NewCAT, IC-7000, IC-7800,
+		IC-910, IC-718, IC-756PROIII, Tentec Orion, Jupiter, RX320, AOR-8000,
+		PCR-1000, Video4Linux, all the kenwood backends, GS-232A
+	* ABI version in backend symbols
+	* expose PTT/DCD setup through rig_set_conf()
+	* Parallel port PTT now following cwdaemon (STROBE+INIT) interface
+	* bindings
+	* ltdl update
+
+Version 1.2.9
+	2009-02-25
+	* New models: FT2000, FT9000, TT-588 Omni VII, FT-840, NRD525, Winradio G305, TRC-80
+	* New rotator backend: Heathkit HD 1780 Intellirotor
+	* Fixes and features: IC-706*, IC-910, K2, K3, DWT, PCR-100, PCR-1000, RX-320,
+		FT-450, FT-747, FT-817, FT-847, FT-857, FT-990, FT-1000D, Orion, netrot,
+		Rotor-EZ, dummy rig and dummy rotator
+	* Bug fix in qrb()
+	* Better assisted split operation
+	* ext_level/ext_parm examples
+	* Documentation update
+
+Version 1.2.8
+	2008-11-02
+	* New models: BC235, BC250, BC780, PRO-2052,
+		BCD396T, BCD996T, K3, FT950
+	* New pseudo models: netrigctl/netrotctl, backends ala rpcrig/rpcrot,
+		but based on rigctld/rotctld
+	* New rotator backend: GS232A, PcRotor
+	* Removed microtune backend
+	* Fixes: DttSP, IC-275, IC-475, IC-725, IC-735, IC-756PRO, IC-761,
+		IC-775, IC-781, IC-706*, Kenwood TH/TM models, Orion,
+		BC245, BC895, FT-100, FT757GX, FT-857, FT-897, FT-920
+	* Numerous bindings fixes, esp. for memory channel works
+	* New commands available in rigctl
+	* New rotctld to go with rigctld rig daemon.
+		The protocol changed, but there's the compatibility
+		option -e to pass to the daemon for previous protocol.
+
+Version 1.2.7.1
+	2008-04-11
+	* New model: miniVNA
+	* Fixes: FT1000MP, Tentec Orion, Omni VI Plus
+	* AOR: implemented scanning
+	* Kenwood models TS2000, TS870S can now get/set antenna.
+          	TS2000 gained strength meter calibration.
+
+Version 1.2.7
+	2008-02-13
+	* Improved Documentation
+	* New models: IC-820H, DttSP, Elektor SDR-USB, DDS-60,
+		      FT-450, FT-767GX
+	* Fixes: IC-746, IC-765, IC-910, Kenwood, FT1000MP, FT817, ..
+	* New rigsmtr toy to graph polar signal strength
+	* New experimental rigctld rig daemon, with simple protocol
+
+Version 1.2.6.2
+	* Fixes: TS570 (Split, RIT/XIT), IC910H
+	* Improved Tentec Orion,RX-320 functionality
+	* Improved Winradio G-313
+	* Better man pages
+
+Version 1.2.6.1
+	* Icom protocol fixes
+	* bindings build fixing
+
+Version 1.2.6
+	2006-12-22
+	* Bump version to 1.2.6
+	* no changes from 1.2.6rc1
+
+Version 1.2.6rc1
+	2006-12-10
+	* Python 2.4 compatibility
+	* Improved TS570 functionality
+	* Improved Argonaut V functionality
+	* New models: IC7000, G313i/G313e
+	* Many Icom, Kenwood, and Tentec fixes.
+	* Build system fixes
+
+Version 1.2.5
+	2006-02-26
+	* frontend API: support for clonable rigs
+		- rigmem: CSV format change
+		- rigctl: new send_cmd for protocol debugging purpose
+		- easy USB devices support
+	* new models: AR8600, AR2700, DWT (DLL based under Windows,
+					   need test under other OS)
+	* fixes: big AOR update, AR7030, Orion, NRD-545, RX-320,
+		 FT-817, FT-990, TS-2000, Easycomm
+	* port: BSD fix of parallel port support
+
+Version 1.2.4
+	2005-04-03
+	* frontend API: port_t renamed as hamlib_port_t
+	* new models: TS-480, VR5000, FT1000MkV Fld
+	* fixes: TS-570S, AR7030, AR3000A, Orion, FT-897, IC746
+	* port: fixed 64bit int handling which potentially fixes backends
+		kenwood/alinco/pcr/uniden/aor/jrc/tentec,
+		added xBSD parallel port support
+
+Version 1.2.3
+	2004-11-17
+	* frontend API: LEVEL_SQLSTAT marked as deprecated
+	* new backends: Racal, V4L radio cards, Watkins-Johnson 8888
+	* new models:  IC-78, IC-7800, IC-R20, IC-756PROIII
+	* fixes: AOR 5k&8k: added S-Meter, 7030: fixed freq,
+		IC-R8500: calibrated S-Meter, Jupiter and many others..
+	* port: mingw32 support with gcc 3.4 version
+
+Version 1.2.2
+	2004-08-23
+	* new models: Ten-Tec (Orion), AOR 3030, Yaesu FRG's, Skanti
+	* fixes: JRC NRD435 & NRD535, Drake, AOR3000, and many other
+	* port: Fixes for BRK/RTS/DTR handling under win32 (-> Elektor304)
+	* bindings: updated Visual Basic wrapper file
+	* rigswr: new command to measure VSWR vs frequency
+
+Version 1.2.1
+	2004-05-19
+	* API change: added RIG_AGC_MEDIUM enum
+	* new backends: kit (Elektor304)
+	* new models: Winradio (G303 under Win32), Kenwood (TMD700,R5000,..),
+		Yaesu(FT757GX,FRG8800), Ten-Tec (Jupiter,RX340,RX350)
+	* fixes: JRC NRD435 & NRD535, and many other
+	* port: made rig.h more Visual C++ friendly, along an import lib
+
+Version 1.2.0
+	2004-02-16
+	* API change:
+		- freq_t type changed from long long to double
+		- setting_t changed from long long to long int.
+		- locator and dec/dms interface rework
+		- bump library CURRENT version info
+	* new backends: Lowe (HF-235), FlexRadio (SDR-1000),
+			skelton TAPR (DSP-10), skelton RFT,
+			Ten-Tec models and many new models & fixes
+	* new rotator backends: sartek
+	* frontend: emulated transceive mode using polling
+	* icom: implemented retry, esp. useful for CI-V
+	* icom: pipelined tuning on Optoscan's
+	* microtune: no need of root priviledges anymore
+	* bindings: added Python, new install method (perl is installed in $prefix)
+	* rigmem: new command to load/store memory content from/to XML file
+	* port: NetBSD & FreeBSD, mingw32(Windows) port, MacOSX ready
+
+Version 1.1.4
+	2003-04-28
+	* new backends: Drake (R8B), GNU Radio (experimental), microtune,
+	  and many new rig models
+	* new rotator backends: fodtrack, rotorez
+	* better doxygenized documentation
+	* reworked perl and tcl bindings using swig
+	* vfo_t rework
+	* gcc-3.x compilance
+
+Version 1.1.3
+	2002-06-17
+	* new backend: JRC (NRD-545), and many new rig models
+	* rotator frontend, new easycomm backend
+	* added Kylix and perl bindings and completed tcl/tk support
+	* networked (RPC) rig and rotator
+
+Version 1.1.2
+	2001-09-23
+	* License converted to LGPL
+	* new backends: Alinco (DX-77), Uniden (BC895),
+					Ten-Tec (RX320), Kachina (505DSP)
+	* New port_t design, coming with easy rig auto-probe
+	* mv_ctl replaced by vfo_op, set_vfo/get_vfo extended to RIG_VFO_MEM
+	* set_conf/get_conf for opaque variable parameters setting
+	* Better portability, esp. with libtool (DLL dlopen'ing works under Win32 !)
+	* added C++ and tcl/tk bindings (not complete yet)
+	* converted from hamlib-doc to doxygen in-source interface documenting
+
+Version 1.1.1
+	2001-05-26
+	* new backends: Kenwood (TS870S), WiNRADiO, PCR-1000, Dummy (for tests)
+	* Hamlib frontend will take care of backends that can't target VFO.
+	* Extended API: caps, levels, parms, etc.
+	* rig_set_mode/rig_get_mode changed again, now use filter caps
+	* more fields shadowed in rig->state, etc.
+	* rigctl now works also non-interactively
+	* get_channel/set_channel can be emulated and new dumpmem utility
+	* will not compile on pure ANSI C compiler, because of gcc struct extension
+
+Version 1.1.0
+	2000-11-11
+	* First draft of a generic API, abstracting radios differences
+	  behind a set of capabilities.
+	* Hamlib is (somewhat) conform to GNU coding standards, and so it uses
+	  configure script generated by Automake and Autoconf
+	* Included hamlib-doc system to generate man pages, API
+	  references in html format.
+	* 2 new backends: Icom (CI-V) with IC706 series, and AOR (AR8200)
+
+Version 1.0.0
+	Initial release.
+
+
+-------------------------------------------------------
+Copying information:
+
+This file is licensed to you under the license specified in the included file
+`LICENSE'. Look there for further details.

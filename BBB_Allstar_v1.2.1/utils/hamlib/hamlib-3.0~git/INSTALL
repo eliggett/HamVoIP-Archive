@@ -1,0 +1,364 @@
+Basic Installation
+==================
+
+For more information specific to Hamlib, please read the README as well as
+README.betatester and the first part of README.developer to see which
+additional development packages are needed. This source code distribution is
+autoconfiguring and you should be able to compile it and install it without
+manual interventions such as editing Makefiles, configuration files, and so
+on. These are generic instructions for people who are not familiar with
+installing autoconfiguring software (along with some Hamlib-specific
+information).
+
+The simplest way to compile this package is to enter the source code
+main directory and do the following:
+
+  1. Configure the source code by typing:
+
+        $ ./configure
+
+     If you are planning to install the package into your home directory
+     or to a location other than `/usr/local' then add the flag
+     `--prefix=PATH' to `configure'. For example, if your home directory
+     is `/home/username' and you would like to install it to a directory
+     named 'local' you can configure the package to install itself
+     there by invoking:
+
+        $ ./configure --prefix=$HOME/local
+
+     The configure script has several options to configure Hamlib.  See the
+     Optional Features section below.
+
+     While running, `configure' prints some messages telling you which
+     features it is checking for.
+
+  2. Compile the package by typing:
+
+        $ make
+
+     Running `make' takes a while.  Since Hamlib is a package, now is the
+     time to go get a cup of coffee.
+
+  3. Some packages are bundled with self-tests for source-code verification.
+     If this package includes such tests, you can optionally run them after
+     compilation by typing
+
+        $ make check
+
+  4. Type `make install' to install the programs and any data files and
+     documentation. Type `make uninstall' to undo the installation.
+
+     N.B.  Be aware that Super User (root) privileges will be required to
+     install to /usr/local or any other system location outside of your home
+     directory.  Many distributions include the `sudo' command which will
+     permit you to install Hamlib after entering your password.  Otherwise
+     you will need to log in as 'root'.
+
+     During installation, the following files go to the following directories:
+        Executables          -> /prefix/bin
+        Libraries            -> /prefix/lib
+        Public header files  -> /prefix/include
+        Man pages            -> /prefix/man/man?
+        Info files           -> /prefix/info
+        Doc files            -> /prefix/share/doc/<prog name>
+        Share files          -> /prefix/share/<prog name>
+     where `prefix' is either `/usr/local' or the PATH that you specified
+     in the `--prefix' flag.
+
+     If any of these directories do not presently exist, they will be
+     created on demand.
+
+     If you are installing in your home directory make sure that
+     `/home/username/bin' is in your path. If you're using the bash shell
+     add these lines at the end of your .bashrc file:
+
+        PATH="/home/username/bin:${PATH}"
+        export PATH
+
+     If you are using csh or tcsh, then use this line instead:
+
+        setenv PATH /home/username/bin:${PATH}
+
+     By prepending your home directory to the rest of the PATH you can
+     override systemwide installed software with your own custom installation.
+
+  5. After installation you may need to update the ld.so.cache as the
+     installation files are placed in /usr/local/lib by default.  On most
+     systems this is easily accomplished by running the `ldconfig' command
+     as the superuser (root).  The following line may need to be added to
+     /etc/ld.so.conf:
+
+        /usr/local/lib
+
+     Most modern distributions have an /etc/ld.so.conf.d/ directory where
+     local configuration can be made. Later versions of Debian and
+     derivatives have a file named 'libc.conf' in this directory.  The
+     contents of libc.conf are:
+
+        # libc default configuration
+        /usr/local/lib
+
+     If your system does not have such a file, one will need to be created
+     and then `ldconfig' will need to be run as the root user so that
+     applications using the Hamlib libraries can find them.
+
+     Now `ldconfig' can be run.
+
+     While the programs built along with Hamlib will probably work fine
+     without running `ldconfig', experience has shown that precompiled
+     binaries like Fldigi will not be able to find a locally compiled
+     libhamlib.so.2 without updating the ld.so.cache.
+
+  6. You can remove the program binaries and object files from the
+     source code directory by typing `make clean'.  To also remove the
+     files that `configure' created (so you can compile the package for
+     a different kind of computer), type `make distclean'.  The
+     `configure' program will need to be run again to recompile Hamlib.
+
+  7. You can optionally generate the Doxygen documentation files:
+
+        cd doc
+        make doc
+
+     The HTML output files are provided for binary releases on the hamlib.org
+     web site.
+
+  8. Finally, if you wish to remove Hamlib, run `make uninstall' as
+     superuser (root), unless Hamlib was installed into your home directory,
+     from the Hamlib source directory.  This will work unless `make distclean'
+     has been run.
+
+Compiler configuration (Advanced usage)
+=======================================
+
+   The `configure' shell script is responsible for choosing and configuring
+the compiler(s).
+
+All programs are compiled with optimization level 2 by default (-O2).
+Occasionally that confuses the debugger when code is inlined. To disable
+optimization and enable debugging, set the shell environment variables
+CFLAGS, CXXFLAGS. On the bash shell, you can do this like this:
+
+  $ export CFLAGS="-g"
+  $ export CXXFLAGS="-g"
+
+On the tcsh shell, use the `setenv' command instead:
+
+  % setenv CFLAGS "-g"
+  ...etc...
+
+For other shells, please consult your shell's documentation.
+
+Similarly, you can increase the optimization level by assigning these
+variables to "-O3".
+
+These variables may also follow all options on the configure command line:
+
+    ./configure --prefix="$HOME/local" [more options] \
+    CFLAGS="-g -O0" \
+    CXXFLAGS="-g -O0"
+
+which will set the installation path to the the directory named 'local' under
+user's home directory(executables will be installed to $HOME/local/bin,
+header files to $HOME/local/include, and so on) and tells the C and C++
+compilers to enable debugging symbols and disable optimizations.
+
+N.B. When setting environment variables on the configure command line, always
+put them last so the configure script is aware of them and can store them in
+the cache.  When placed before the configure script on the command line, they
+cannot be cached.
+
+Depending on what languages the package uses, some of these options may
+or may not be available. To see what is available, type:
+
+    % sh ./configure --help
+
+About the configure script
+==========================
+
+   The `configure' shell script attempts to guess correct values for
+various system-dependent variables used during compilation.  It uses
+those values to create a `Makefile' in each directory of the package.
+It may also create one or more `.h' files containing system-dependent
+definitions.  Finally, it creates a shell script `config.status' that
+you can run in the future to recreate the current configuration, a file
+`config.cache' that saves the results of its tests to speed up
+reconfiguring, and a file `config.log' containing compiler output
+(useful mainly for debugging `configure').
+
+   If you need to do unusual things to compile the package, please try
+to figure out how `configure' could check whether to do them, and mail
+diffs or instructions to the address given in the `README' so they can
+be considered for the next release.  If at some point `config.cache'
+contains results you don't want to keep, you may remove or edit it.
+
+   The file `configure.ac' is used to create `configure' by a program
+called `autoreconf'.  You only need `configure.ac' if you want to change
+it or regenerate `configure' using a newer version of `autoconf'.  This
+project uses a custom `autogen.sh' for running autoreconf in a developer's
+checkout of Hamlib from a source repository.
+
+Advanced installation options.
+==============================
+
+   The `configure' script also understands the following more advanced
+options, to handle situations for which `--prefix' alone is not sufficient.
+
+   You can specify separate installation prefixes for
+architecture-specific files and architecture-independent files.  If you
+give `configure' the option `--exec-prefix=PATH', the package will use
+PATH as the prefix for installing programs and libraries.
+Documentation and other data files will still use the regular prefix.
+
+   In addition, if you use an unusual directory layout you can give
+options like `--bindir=PATH' to specify different values for particular
+kinds of files.  Run `configure --help' for a list of the directories
+you can set and what kinds of files go in them.
+
+   If the package supports it, you can cause programs to be installed
+with an extra prefix or suffix on their names by giving `configure' the
+option `--program-prefix=PREFIX' or `--program-suffix=SUFFIX'.
+
+Optional Features
+=================
+
+   Some packages pay attention to `--enable-FEATURE' options to
+`configure', where FEATURE indicates an optional part of the package.
+They may also pay attention to `--with-PACKAGE' options, where PACKAGE
+is something like `gnu-as' or `x' (for the X Window System).  The
+`README' should mention any `--enable-' and `--with-' options that the
+package recognizes.
+
+   The configure script enables both shared and static Hamlib library builds
+by default.  In some cases only one or the other is needed.  The following
+options control the type of library:
+
+    --disable-shared            # Only build a static library
+    --disable-static            # Only build a shared library
+
+   Shared libraries (DLLs on Windows) are used most often, however, there are
+times when it is desirable to have Hamlib included as a built-in part of an
+application which the use a static library (see Static Build below).
+
+MS Windows
+==========
+- Debian system with mingw32msvc cross-compiler
+
+    ./configure --host=i586-mingw32msvc
+
+- Debian system with MinGW W64 cross-compiler for Windows 32 bit
+
+    ./configure --host=i686-w64-mingw32
+
+- Specifying the directory of libusb for a Windows build using MinGW as
+  libusb must be installed separately, use the following environment
+  variables after all other options.
+
+    ./configure [other options] \
+    CPPFLAGS="-I/path_to_libusb/include" \
+    LDFLAGS="-L/path_to_libusb/lib/gcc"
+
+- Mingw compiler under Cygwin
+
+    ./configure --host=i686-pc-mingw32 \
+    CC="gcc -mno-cygwin" \
+    CXX="g++ -mno-cygwin"
+
+- Cygwin
+    Native Cygwin requires no special options besides regular ones.
+
+N.B. See the 'build-win32.sh' script and its associated README.build-win32 file
+in the 'scripts' directory for complete details on building a Windows 32 binary
+with MSVCC library support.
+
+Hamlib Specific Features
+========================
+
+    Various Hamlib features requiring the presence of third party packages are
+enabled with options beginning with '--with-'.  At this time these options
+are:
+
+  --with-xml-support      build rigmem with XML support [default=no]
+  --without-readline      disable readline in rigctl/rotctl [default=yes]
+  --without-cxx-binding   do not build C++ binding and demo [default=yes]
+  --with-perl-binding     build perl binding and demo [default=no]
+  --with-perl-inc         directory containing perl includes
+  --with-python-binding   build python binding and demo [default=no]
+  --with-tcl-binding      build Tcl binding and demo [default=no]
+  --with-tcl=PATH         directory containing tcl configuration (tclConfig.sh)
+
+    Optional features that may require specialized hardware are:
+
+  --disable-html-matrix   do not generate HTML rig feature matrix (requires
+                          libgd-dev) [default=check]
+  --disable-winradio      do not build winradio backend [default=yes]
+  --enable-usrp           build USRP backend [default=no]
+
+Bindings notes
+--------------
+
+   Should you encounter any problem with the build of the C++ binding,
+you can disable this optional part by passing `--without-cxx-binding'
+to the configure script (may happen under MacOSX).
+
+    Note that the Perl, Python, and TCL bindings are disabled by default so
+they will need to be specifically enabled for language binding support (this
+has no effect on rigctld/rotctld).  You may get a make error (which means it
+will quit before compilation is complete) if the
+--with-[perl|python|tcl]-binding option(s) are given and the Swig package is
+not installed.
+
+    Perl and Python bindings should be installed into a 'configure' runtime
+discovered location under the default prefix.
+
+    The TCL binding will be installed into $(libdir)/tcl/Hamlib (default).  If a
+non-default --prefix is passed to 'configure', the 'lappend' line in tcltest.tcl
+script will need to be modified accordingly so the script can load the Hamlib
+package.  As TCL doesn't seem to have a "standard" location for additional
+packages and since there seemed to be no common location among distributions,
+this path was chosen abitrarily.  Any patches to improve installation path
+discovery of local packages are welcome.
+
+    When running 'make uninstall' the installed files for the Python and TCL
+modules are removed.  The Perl files will remain due to a design decision
+of the Perl MakeMaker module.  Installed Perl binding files will need to be
+removed manually.
+
+Static Build
+============
+
+Note, the following is still experimental.
+
+   As noted above, there are times when including Hamlib as part of an
+application may be thought to ease its distribution.  As a static library is
+built by default the following notes may assist application authors.
+
+   The 'kit' backend depends on libusb.  To link libusb statically set the
+following environment variable on the 'configure' command line:
+
+    LIBUSB_LIBS="/usr/lib/i386-linux-gnu/libusb.a"
+
+do note that the absolute path to 'libusb.a' may well be quite different on
+other systems.
+
+   By default the GNU linker (ld) will include most all symbols in a static
+library into the executable.  As it may be desired to only include the actual
+symbols used by the application, set the following environment variables on
+the command line of the application's 'configure' script:
+
+    CFLAGS="-fdata-sections -ffunction-sections" LDFLAGS="-Wl,--gc-sections"
+
+These can be set on the Hamlib 'configure' script's command line to see the
+effect on the Hamlib utilities when they are built as statically linked
+applicatins (--disable-shared option passed to 'configure').  With these
+environment variables it can be seen that 'rigctl' contains no rotor symbols
+nor does 'rotctl' contain any rig symbols.
+
+   Combining the above, everything above may be put together:
+
+    ./configure --disable-shared --prefix="$HOME/local" --without-cxx-binding \
+    --disable-winradio CFLAGS="-fdata-sections -ffunction-sections" \
+    LDFLAGS="-Wl,--gc-sections" LIBUSB_LIBS="/usr/lib/i386-linux-gnu/libusb.a"
+
+to make a static only Hamlib library, statically link libusb, and include only
+the needed symbols in the Hamlib utilities linking to libhamlib.a.

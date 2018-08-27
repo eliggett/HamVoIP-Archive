@@ -1,0 +1,13 @@
+prefix=/usr/local/hamlib
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: Hamlib
+Description: Library to control radio and rotator equipment.
+URL: http://www.hamlib.org
+Version: 3.0~git
+Requires.private: libusb
+Cflags: -I${includedir} -pthread
+Libs: -L${libdir} -lhamlib
+Libs.private: -lm   

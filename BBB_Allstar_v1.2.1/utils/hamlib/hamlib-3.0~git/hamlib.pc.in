@@ -1,0 +1,13 @@
+prefix=@prefix@
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: @PACKAGE_NAME@
+Description: Library to control radio and rotator equipment.
+URL: @PACKAGE_URL@
+Version: @PACKAGE_VERSION@
+Requires.private: @LIBUSB@
+Cflags: -I${includedir} @PTHREAD_CFLAGS@
+Libs: -L${libdir} -lhamlib
+Libs.private: @MATH_LIBS@ @DL_LIBS@ @NET_LIBS@ @PTHREAD_LIBS@

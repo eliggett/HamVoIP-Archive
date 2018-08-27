@@ -1,0 +1,194 @@
+# NOTE: Names of _INCLUDE and _LIB entries in this file must be
+#       the exact uppercase equivalents of the names used for
+#       dependencies in menuselect for the same package.
+
+CC=gcc
+HOST_CC=cc
+CXX=g++
+
+INSTALL=/usr/bin/install -c
+AWK=/usr/bin/awk
+GREP=/usr/bin/grep
+AR=/usr/bin/ar
+RANLIB=ranlib
+FIND=/usr/bin/find
+COMPRESS=:
+BASENAME=/usr/bin/basename
+ID=/usr/bin/id
+SHELL=/bin/sh
+LN=/usr/bin/ln
+DOT=:
+STRIP=/usr/bin/strip
+WGET=/usr/bin/wget
+FETCH=
+DOWNLOAD=/usr/bin/wget
+
+BUILD_PLATFORM=armv7l-unknown-linux-gnu
+BUILD_CPU=armv7l
+BUILD_VENDOR=unknown
+BUILD_OS=linux-gnu
+
+HOST_PLATFORM=armv7l-unknown-linux-gnu
+HOST_CPU=armv7l
+HOST_VENDOR=unknown
+HOST_OS=linux-gnu
+
+#PROC=arm
+PROC=armv7l
+OSARCH=linux-gnu
+OSREV=3.8.13-19-ARCH
+
+GC_CFLAGS=-ffunction-sections
+GC_LDFLAGS=-Wl,--gc-sections
+
+PTHREAD_CFLAGS=-pthread
+PTHREAD_LIBS=
+
+prefix = /usr
+exec_prefix = ${prefix}
+
+bindir = ${exec_prefix}/bin
+datarootdir = ${prefix}/share
+datadir = ${datarootdir}
+includedir = ${prefix}/include
+infodir = ${datarootdir}/info
+libdir = ${exec_prefix}/lib
+libexecdir = ${exec_prefix}/libexec
+localstatedir = /var
+mandir = ${datarootdir}/man
+sbindir = ${exec_prefix}/sbin
+sharedstatedir = ${prefix}/com
+sysconfdir = /etc
+
+AST_DEVMODE=
+
+AST_DECLARATION_AFTER_STATEMENT=-Wdeclaration-after-statement
+AST_NO_STRICT_OVERFLOW=-fno-strict-overflow
+
+ASOUND_INCLUDE= 
+ASOUND_LIB=-lasound -lm -ldl
+
+CURL_INCLUDE=
+CURL_LIB=-lcurl
+
+CURSES_INCLUDE= 
+CURSES_LIB=-lcurses 
+CURSES_DIR=
+
+EDITLINE_LIB=-lcurses 
+
+FREETDS_INCLUDE=
+FREETDS_LIB=
+
+GSM_INTERNAL=yes
+GSM_INCLUDE=
+GSM_LIB=
+
+GTK_INCLUDE=
+GTK_LIB=
+
+GTK2_INCLUDE=
+GTK2_LIB=
+
+IKSEMEL_INCLUDE=
+IKSEMEL_LIB=
+
+GNUTLS_INCLUDE=
+GNUTLS_LIB=
+
+IMAP_TK_INCLUDE=
+IMAP_TK_LIB=
+
+KDEDIR=
+KDE_INCLUDE=
+KDE_LIB=
+
+NBS_INCLUDE=
+NBS_LIB=
+
+NCURSES_INCLUDE= 
+NCURSES_LIB=-lncurses 
+NCURSES_DIR=
+
+NETSNMP_LIB=
+
+NEWT_INCLUDE=
+NEWT_LIB=
+
+OGG_INCLUDE= 
+OGG_LIB=-logg 
+
+OSPTK_INCLUDE=
+OSPTK_LIB=
+
+OSSAUDIO_INCLUDE=
+OSSAUDIO_LIB=
+
+PGSQL_INCLUDE=
+PGSQL_LIB=
+
+POPT_INCLUDE= 
+POPT_LIB=-lpopt 
+
+PRI_INCLUDE=
+PRI_LIB=
+
+PWLIB_INCLUDE=
+PWLIB_LIB=
+
+RADIUS_INCLUDE=
+RADIUS_LIB=
+
+SPEEX_INCLUDE=
+SPEEX_LIB=
+
+SPEEXDSP_INCLUDE=
+SPEEXDSP_LIB=
+
+SQLITE_INCLUDE=
+SQLITE_LIB=
+
+SSL_INCLUDE= 
+SSL_LIB=-lssl -lcrypto
+
+TONEZONE_INCLUDE= 
+TONEZONE_LIB=-ltonezone 
+
+USB_INCLUDE= 
+USB_LIB=-lusb 
+
+UNIXODBC_INCLUDE= 
+UNIXODBC_LIB=-lodbc 
+
+VORBIS_INCLUDE= 
+VORBIS_LIB=-lvorbis -lm -lvorbisenc
+
+VPBAPI_INCLUDE=
+VPBAPI_LIB=
+
+DAHDI_INCLUDE=
+
+ZAPTEL_INCLUDE=
+
+ZLIB_INCLUDE= 
+ZLIB_LIB=-lz 
+
+ISDNNET_INCLUDE=
+ISDNNET_LIB=
+
+MISDN_INCLUDE=
+MISDN_LIB=
+
+SUPPSERV_INCLUDE=
+SUPPSERV_LIB=
+
+CAP_LIB=-lcap 
+CAP_INCLUDE= 
+
+TERMCAP_INCLUDE=
+TERMCAP_LIB=
+TERMCAP_DIR=
+
+TINFO_INCLUDE=
+TINFO_LIB=
+TINFO_DIR=
